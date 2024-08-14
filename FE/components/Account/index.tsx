@@ -70,10 +70,30 @@ const Account = () => {
                 value={selectedTab}
                 onChange={changeTabHandler}
             >
-                <Tab index="0">Swimming</Tab>
-                <Tab index="1">Riding</Tab>
-                <Tab index="2">Running</Tab>
-                <Tab index="3">Workout</Tab>
+                <Tab index="0">
+                    <div className="flex items-center gap-1.5">
+                        <SwimIcon />
+                        <div>Swimming</div>
+                    </div>
+                </Tab>
+                <Tab index="1">
+                    <div className="flex items-center gap-1.5">
+                        <RidingIcon />
+                        <div>Riding</div>
+                    </div>
+                </Tab>
+                <Tab index="2">
+                    <div className="flex items-center gap-1.5">
+                        <RunningIcon />
+                        <div>Running</div>
+                    </div>
+                </Tab>
+                <Tab index="3">
+                    <div className="flex items-center gap-1.5">
+                        <WorkoutIcon />
+                        <div>Workout</div>
+                    </div>
+                </Tab>
             </Tabs>
 
             <div className="mt-8">
