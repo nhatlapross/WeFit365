@@ -1,0 +1,31 @@
+import NextAuth from "next-auth"
+import GoogleProvider from "next-auth/providers/google"
+
+export default NextAuth({
+  providers: [
+    GoogleProvider({
+      clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
+      clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
+      authorization: {
+        params: {
+          scope: 'openid email profile https://www.googleapis.com/auth/fitness.activity.read https://www.googleapis.com/auth/fitness.body.read https://www.googleapis.com/auth/fitness.location.read'
+        }
+      }
+    }),
+  ],
+  callbacks: {
+    async jwt({ token, account }) {
+      if (account) {
+        console.log('Setting access token in JWT')
+        token.accessToken = account.access_token
+      }
+      return token
+    },
+    async session({ session, token }) {
+      console.log('Setting access token in session')
+      session.accessToken = token.accessToken
+      return session
+    }
+  },
+  debug: true, // Enable debug messages in the console
+})

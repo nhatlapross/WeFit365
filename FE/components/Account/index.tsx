@@ -22,12 +22,42 @@ import DistanceSmall from "@/asset/icon/DistanceSmall";
 import RidingIcon from "@/asset/icon/RidingIcon";
 import WorkoutIcon from "@/asset/icon/WorkoutIcon";
 import CalSmall from "@/asset/icon/CalSmall";
+import { signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import StepChart from '@/components/StepChart';
+import Step7dayChart from "../SevenDayStep";
+
+interface FitnessData {
+    steps: number,
+    distance: number
+}
 
 const Account = () => {
     const [selectedTab, setSelectedTab] = useTab('2');
     function changeTabHandler(value: string) {
         setSelectedTab(value);
     }
+    const [stepData, setStepData] = useState([]);
+    const [fitData, setFitData] = useState<FitnessData>({steps:0,distance:0});
+
+    useEffect(() => {
+        async function fetchStepData() {
+          const response = await fetch('/api/getDailyStep');
+          const data = await response.json();
+          console.log(data);
+          setStepData(data);
+        }
+
+        async function fetchFitData() {
+            const response = await fetch('/api/getFitnessData');
+            const data = await response.json();
+            setFitData(data);
+          }
+
+        fetchStepData();
+        fetchFitData();
+      }, []);
 
     return (
         <>
@@ -36,7 +66,7 @@ const Account = () => {
                     <Image src={avatar} alt='avatar' className="w-10 h-10 rounded-full border-2 border-stone-900 object-cover" />
                     <span className="font-bold">Jane Cooper</span>
                 </div>
-                <button>
+                <button onClick={() => signOut()}>
                     <NotiIcon />
                 </button>
             </div>
@@ -64,7 +94,14 @@ const Account = () => {
                 </div>
             </div>
 
-            <div className="my-10 h-[298px] bg-rose-200"></div>
+            <div className="my-10">
+                <h1 className="text-center mb-4 text-xl font-bold">Your step in 7 days ago</h1>
+                {stepData.length > 0 ? (
+                    <Step7dayChart data={stepData} />
+                ) : (
+                    <p className="text-center">Loading step data...</p>
+                )}
+            </div>  
 
             <Tabs
                 value={selectedTab}
@@ -82,7 +119,7 @@ const Account = () => {
                         <div className="p-2 bg-[#FFFCEB] border border-[#FFF3AD] rounded-full"><DistanceIcon /></div>
                         <div>
                             <h3 className="text-xs leading-normal text-[#F5BC00]">Distance</h3>
-                            <span>6.78</span> <span className="text-xs leading-normal text-[#81819C]">km</span>
+                            <span>{(fitData.distance / 1000).toFixed(2)}</span> <span className="text-xs leading-normal text-[#81819C]">km</span>
                         </div>
                     </div>
                     <div className="px-4 py-2 flex items-center gap-x-3 border border-[#521400]/0.1 rounded-lg">
