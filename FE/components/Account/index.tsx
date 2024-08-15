@@ -27,6 +27,7 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import StepChart from '@/components/StepChart';
 import Step7dayChart from "../SevenDayStep";
+import GaugeChart from "../GaugeChart/GaugeChart";
 
 interface FitnessData {
     steps: number,
@@ -93,7 +94,9 @@ const Account = () => {
                     </div>
                 </div>
             </div>
-
+            <div>
+                <GaugeChart value={fitData.steps} maxValue={10000} />
+            </div>
             <div className="my-10">
                 <h1 className="text-center mb-4 text-xl font-bold">Your step in 7 days ago</h1>
                 {stepData.length > 0 ? (

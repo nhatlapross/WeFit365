@@ -15,7 +15,9 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.4.6",
+    "@types/react-gauge-chart": "^0.4.3",
     "chart.js": "^4.4.3",
+    "chartjs-gauge": "^0.3.0",
     "classnames": "^2.5.1",
     "framer-motion": "^11.3.21",
     "google-auth-library": "^9.13.0",
