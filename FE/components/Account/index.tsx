@@ -94,7 +94,7 @@ const Account = () => {
                     </div>
                 </div>
             </div>
-            <div>
+            <div className="flex justify-center items-center my-8">
                 <GaugeChart value={fitData.steps} maxValue={10000} />
             </div>
             <div className="my-10">

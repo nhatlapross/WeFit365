@@ -15,7 +15,7 @@ const GaugeChart: React.FC<GaugeChartProps> = ({ value, maxValue }) => {
   const COLORS = ['#FFA500', '#FFC0CB'];
 
   return (
-    <div style={{ width: '300px', height: '200px', position: 'relative' }}>
+    <div style={{ width: '400px', height: '200px', position: 'relative' }}>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
@@ -24,8 +24,8 @@ const GaugeChart: React.FC<GaugeChartProps> = ({ value, maxValue }) => {
             cy="100%"
             startAngle={180}
             endAngle={0}
-            innerRadius={60}
-            outerRadius={80}
+            innerRadius={100}
+            outerRadius={140}
             paddingAngle={0}
             dataKey="value"
           >
@@ -42,28 +42,28 @@ const GaugeChart: React.FC<GaugeChartProps> = ({ value, maxValue }) => {
         transform: 'translate(-50%, -20%)',
         textAlign: 'center',
       }}>
-        <div style={{ fontSize: '10px' }}>
-          <a style={{fontWeight: 'bold'}}>{value}</a>/{maxValue} steps
+        <div style={{ fontSize: '16px' }}>
+          <span style={{fontWeight: 'bold', fontSize: '24px'}}>{value}</span>/{maxValue} steps
         </div>
         <button style={{
           backgroundColor: '#FF0000',
           borderRadius: '50%',
-          width: '40px',
-          height: '40px',
+          width: '60px',
+          height: '60px',
           border: 'none',
           cursor: 'pointer',
           display: 'inline-flex',
           justifyContent: 'center',
           alignItems: 'center',
-          marginTop: '10px'
+          marginTop: '20px'
         }}>
           <div style={{
             width: 0,
             height: 0,
-            borderTop: '8px solid transparent',
-            borderBottom: '8px solid transparent',
-            borderLeft: '12px solid white',
-            marginLeft: '3px'
+            borderTop: '12px solid transparent',
+            borderBottom: '12px solid transparent',
+            borderLeft: '18px solid white',
+            marginLeft: '5px'
           }}></div>
         </button>
       </div>
