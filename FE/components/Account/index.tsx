@@ -78,9 +78,9 @@ const Account = () => {
                         width={45}
                         radius="full"
                         alt="NextUI Fruit Image with Zoom"
-                        src={session?.user?.image}
+                        src={session?.user?.image ?? "/path/to/default/image.jpg"}
                     />
-                    <span className="font-bold">{session.user?.name}</span>
+                    <span className="font-bold">{session?.user?.name}</span>
                 </div>
                 <button onClick={() => signOut()}>
                     <LogoutIcon />
