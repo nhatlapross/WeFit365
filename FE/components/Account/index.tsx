@@ -34,12 +34,18 @@ interface FitnessData {
     distance: number
 }
 
+interface StepData {
+    date: string;
+    steps: number;
+  }
+  
+
 const Account = () => {
     const [selectedTab, setSelectedTab] = useTab('2');
     function changeTabHandler(value: string) {
         setSelectedTab(value);
     }
-    const [stepData, setStepData] = useState([]);
+    const [stepData, setStepData] = useState<StepData[]>([]);
     const [fitData, setFitData] = useState<FitnessData>({steps:0,distance:0});
 
     useEffect(() => {

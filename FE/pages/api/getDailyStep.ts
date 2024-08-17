@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const now = new Date();
     const startTime = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-    const response = await fitness.users.dataset.aggregate({
+    const response = await (fitness.users.dataset.aggregate as any)({
       userId: 'me',
       requestBody: {
         aggregateBy: [{
@@ -44,7 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }));
 
     res.status(200).json(stepData);
-  } catch (error) {
+  } catch (error:any) {
     console.error('Error in getFitnessData:', error)
     res.status(500).json({ 
       error: 'Failed to fetch fitness data', 

@@ -1,11 +1,25 @@
-import NextAuth from "next-auth"
+import NextAuth, { DefaultSession } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
+
+// Extend the built-in session type
+declare module "next-auth" {
+  interface Session extends DefaultSession {
+    accessToken?: string
+  }
+}
+
+// Extend the built-in JWT type
+declare module "next-auth/jwt" {
+  interface JWT {
+    accessToken?: string
+  }
+}
 
 export default NextAuth({
   providers: [
     GoogleProvider({
-      clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
-      clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
+      clientId: process.env.NEXT_PUBLIC_CLIENT_ID as string,
+      clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET as string,
       authorization: {
         params: {
           scope: 'openid email profile https://www.googleapis.com/auth/fitness.activity.read https://www.googleapis.com/auth/fitness.body.read https://www.googleapis.com/auth/fitness.location.read'

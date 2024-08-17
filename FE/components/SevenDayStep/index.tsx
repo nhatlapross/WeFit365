@@ -1,15 +1,24 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const Step7dayChart = (data:any) => {
+interface StepData {
+  date: string;
+  steps: number;
+}
+
+interface Step7dayChartProps {
+  data: StepData[];
+}
+
+const Step7dayChart: React.FC<Step7dayChartProps> = ({ data }) => {
   console.log('Chart data:', data);
 
-  if (!data || data.length === 0) {
+  if (!Array.isArray(data) || data.length === 0) {
     return <p>No data available</p>;
   }
 
   // Find the maximum step count
-  const maxSteps = Math.max(...data.map((item:any) => item.steps));
+  const maxSteps = Math.max(...data.map(item => item.steps));
 
   return (
     <div className="flex justify-center items-center bg-white p-4 rounded-lg shadow-md">
