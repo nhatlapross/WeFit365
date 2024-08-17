@@ -9,7 +9,7 @@ const Step7dayChart = (data:any) => {
   }
 
   // Find the maximum step count
-  const maxSteps = Math.max(...data.map(item => item.steps));
+  const maxSteps = Math.max(...data.map((item:any) => item.steps));
 
   return (
     <div className="flex justify-center items-center bg-white p-4 rounded-lg shadow-md">
