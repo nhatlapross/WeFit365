@@ -1,7 +1,7 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const Step7dayChart = ({ data }) => {
+const Step7dayChart = (data:any) => {
   console.log('Chart data:', data);
 
   if (!data || data.length === 0) {
