@@ -1,5 +1,6 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface GaugeChartProps {
   value: number;
@@ -13,6 +14,10 @@ const GaugeChart: React.FC<GaugeChartProps> = ({ value, maxValue }) => {
   ];
 
   const COLORS = ['#FFA500', '#FFC0CB'];
+
+  const start = () =>{
+    toast.success('Checkin successful.')
+  }
 
   return (
     <div style={{ width: '400px', height: '200px', position: 'relative' }}>
@@ -45,7 +50,7 @@ const GaugeChart: React.FC<GaugeChartProps> = ({ value, maxValue }) => {
         <div style={{ fontSize: '16px' }}>
           <span style={{fontWeight: 'bold', fontSize: '24px'}}>{value}</span>/{maxValue} steps
         </div>
-        <button style={{
+        <button onClick={() => start()} style={{
           backgroundColor: '#FF0000',
           borderRadius: '50%',
           width: '60px',
@@ -67,6 +72,7 @@ const GaugeChart: React.FC<GaugeChartProps> = ({ value, maxValue }) => {
           }}></div>
         </button>
       </div>
+      <Toaster />
     </div>
   );
 };

@@ -33,7 +33,9 @@ import LogoutIcon from "@/asset/icon/LogoutIcon";
 
 interface FitnessData {
     steps: number,
-    distance: number
+    distance: number,
+    activeDuration: number,
+    calories: number,
 }
 
 interface StepData {
@@ -48,7 +50,8 @@ const Account = () => {
         setSelectedTab(value);
     }
     const [stepData, setStepData] = useState<StepData[]>([]);
-    const [fitData, setFitData] = useState<FitnessData>({steps:0,distance:0});
+    const [email,setEmail] = useState("")
+    const [fitData, setFitData] = useState<FitnessData>({steps:0,distance:0,activeDuration:0,calories:0});
     const { data: session } = useSession() || {};
     useEffect(() => {
         async function fetchStepData() {
@@ -58,15 +61,42 @@ const Account = () => {
           setStepData(data);
         }
 
-        async function fetchFitData() {
-            const response = await fetch('/api/getFitnessData');
-            const data = await response.json();
-            setFitData(data);
-          }
-
         fetchStepData();
-        fetchFitData();
+        fetchUserData();
       }, []);
+
+    const fetchFitData = async () => {
+        try {
+            const response = await fetch('/api/getFitnessData');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log("Fitness data received:", data);
+            setFitData(data);
+        } catch (error) {
+            console.error("Error fetching fitness data:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchFitData(); // Fetch immediately
+        const intervalId = setInterval(fetchFitData, 60000); // Then every minute
+        return () => clearInterval(intervalId);
+    }, []);
+
+    const fetchUserData = async () => {
+        try {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/get/getUser?email=${session?.user?.email}`);
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const result = await response.json();
+          console.log(result);
+        } catch (error) {
+          console.log(error);
+        }
+      }
 
     return (
         <>
@@ -144,21 +174,21 @@ const Account = () => {
                         <div className="p-2 bg-[#FFFCEB] border border-[#FFF3AD] rounded-full"><DurationIcon /></div>
                         <div>
                             <h3 className="text-xs leading-normal text-[#2EAADC]">Duration</h3>
-                            <span>6.78</span> <span className="text-xs leading-normal text-[#81819C]">min</span>
+                            <span>{(fitData.activeDuration)}</span> <span className="text-xs leading-normal text-[#81819C]">min</span>
                         </div>
                     </div>
                     <div className="px-4 py-2 flex items-center gap-x-3 border border-[#521400]/0.1 rounded-lg">
                         <div className="p-2 bg-[#FFFCEB] border border-[#FFF3AD] rounded-full"><AvgPaceIcon /></div>
                         <div>
                             <h3 className="text-xs leading-normal text-[#1FB319]">Avg Pace</h3>
-                            <span>6.78</span> <span className="text-xs leading-normal text-[#81819C]">km</span>
+                            <span>{(fitData.distance/1000).toFixed(2)}</span> <span className="text-xs leading-normal text-[#81819C]">km</span>
                         </div>
                     </div>
                     <div className="px-4 py-2 flex items-center gap-x-3 border border-[#521400]/0.1 rounded-lg">
                         <div className="p-2 bg-[#FFFCEB] border border-[#FFF3AD] rounded-full"><CalIcon /></div>
                         <div>
                             <h3 className="text-xs leading-normal text-[#FF7547]">Calories</h3>
-                            <span>6.78</span> <span className="text-xs leading-normal text-[#81819C]">kcal</span>
+                            <span>{(fitData.calories).toFixed(2)}</span> <span className="text-xs leading-normal text-[#81819C]">cal</span>
                         </div>
                     </div>
                 </div>
