@@ -49,7 +49,7 @@ const Account = () => {
     }
     const [stepData, setStepData] = useState<StepData[]>([]);
     const [fitData, setFitData] = useState<FitnessData>({steps:0,distance:0});
-    const { data: session } = useSession();
+    const { data: session } = useSession() || {};
     useEffect(() => {
         async function fetchStepData() {
           const response = await fetch('/api/getDailyStep');
