@@ -41,7 +41,14 @@ interface FitnessData {
 interface StepData {
     date: string;
     steps: number;
-  }
+}
+
+interface Total {
+    distance: number;
+    hour: number;
+    minute: number;
+    coin: number;
+}
   
 
 const Account = () => {
@@ -52,6 +59,7 @@ const Account = () => {
     const [stepData, setStepData] = useState<StepData[]>([]);
     const [email,setEmail] = useState("")
     const [fitData, setFitData] = useState<FitnessData>({steps:0,distance:0,activeDuration:0,calories:0});
+    const [toTal,setTotal] = useState<Total>({distance:25.06,hour:25,minute:10,coin:256});
     const { data: session } = useSession() || {};
     useEffect(() => {
         async function fetchStepData() {
@@ -98,6 +106,15 @@ const Account = () => {
         }
       }
 
+    const onClaimSuccess = (updatedFitData: Total) => {
+        setTotal({
+            distance: toTal.distance + updatedFitData.distance,
+            hour: toTal.hour + updatedFitData.hour,
+            minute: toTal.minute + updatedFitData.minute,
+            coin: toTal.coin + updatedFitData.coin
+        });
+      };
+
     return (
         <>
             <div className="w-full flex justify-between items-center">
@@ -120,27 +137,27 @@ const Account = () => {
             <div className="card">
                 <h1 className="font-bold">Beginner</h1>
                 <div className="my-1 flex items-center">
-                    <LogoIconSmall /><span className="text-[32px] leading-normal font-bold">256</span>
+                    <LogoIconSmall /><span className="text-[32px] leading-normal font-bold">{toTal.coin}</span>
                 </div>
                 <div className="flex items-center gap-x-6">
                     <div>
                         <h2 className="text-[10px] font-medium">Total distances</h2>
                         <div>
-                            <span className="text-xl leading-normal font-bold">25.06</span> <span className="text-xs leading-normal">km</span>
+                            <span className="text-xl leading-normal font-bold">{toTal.distance}</span> <span className="text-xs leading-normal">km</span>
                         </div>
                     </div>
                     <div>
                         <h2 className="text-[10px] font-medium">Total time</h2>
                         <div>
-                            <span className="text-xl leading-normal font-bold">25</span> <span className="text-xs leading-normal">hrs</span>
+                            <span className="text-xl leading-normal font-bold">{toTal.hour}</span> <span className="text-xs leading-normal">hrs</span>
                             {" "}
-                            <span className="text-xl leading-normal font-bold">06</span> <span className="text-xs leading-normal">min</span>
+                            <span className="text-xl leading-normal font-bold">{toTal.minute}</span> <span className="text-xs leading-normal">min</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="flex justify-center items-center my-8">
-                <GaugeChart value={fitData.steps} maxValue={10000} />
+                <GaugeChart value={fitData.steps} maxValue={10000} onClaimSuccess={onClaimSuccess}/>
             </div>
             <div className="my-10">
                 <h1 className="text-center mb-4 text-xl font-bold">Your step in 7 days ago</h1>

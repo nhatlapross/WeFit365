@@ -24,6 +24,7 @@
     "google-auth-library": "^9.13.0",
     "googleapis": "^30.0.0",
     "http2": "^3.3.7",
+    "moment": "^2.30.1",
     "next": "14.2.5",
     "next-auth": "^4.24.7",
     "react": "^18",
