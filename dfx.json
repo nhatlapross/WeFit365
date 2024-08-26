@@ -9,8 +9,11 @@
       "dependencies": [
         "example_backend"
       ],
+      "frontend": {
+        "entrypoint": "FE/out/index.html"
+      },
       "source": [
-        "src/example_frontend/assets"
+        "FE/out"
       ],
       "type": "assets"
     }

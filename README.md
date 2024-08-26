@@ -21,6 +21,69 @@ dfx help
 dfx canister --help
 ```
 
+## Start dfx
+dfx start --background
+
+## Build your Next.js application
+You must also generate and point the static files of a properly-built Next.js application for deployment on the Internet Computer.
+
+To generate the static files of a Next.js application, add this to your next.config.js file:
+
+output: 'export'
+Your next.config.js file should look similar to this. Please note that you may have existing settings that you should avoid overriding.
+
+const nextConfig = {
+  output: 'export',
+};
+
+Build your Next.js application by running the following command:
+
+npx run build
+
+This should now generate an out folder which consists of the static assets that make up the website.
+
+In the next step, we will instruct the Internet Computer to deploy the website on-chain using these static files.
+
+When deploying on the Internet Computer, these static files are not public to anyone including the nodes. Only the WASM file which is a binary instruction file that does not leak any of your code is public to nodes.
+
+## Create a dfx.json file
+In the top-level directory of your repository, at the source of add a dfx.json file and add the following:
+
+{
+    "canisters": {
+      "example_frontend": {
+        "frontend": {
+          "entrypoint": "FE/out/index.html"
+        },
+        "source": ["FE/out"],
+        "type": "assets"
+      }
+    },
+    "output_env_file": ".env"
+}
+dfx.json is the configuration file for deploying all of your code to canister smart contracts on the Internet Computer mainnet or production environment.
+
+Please note that you can adjust the following:
+
+erc20icp - name of the canister smart contract
+
+Also, make sure that these do point to the correct file:
+
+"entrypoint": "FE/out/index.html"
+and folder:
+
+ "source": ["FE/out"],
+
+Also add wordspaces in package.json:
+"workspaces": [
+  "FE"
+]
+
+## Run dfx generate
+Run the following command to generate the correct types.
+
+dfx generate
+
 ## Running the project locally
 
 If you want to test your project locally, you can use the following commands:
