@@ -1,4 +1,4 @@
-FE/.next
-node_modules
-.dfx
-target
+FE/.next/
+node_modules/
+.dfx/
+target/

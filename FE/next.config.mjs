@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // output: 'export',
   webpack: (config) => {
     config.resolve.fallback = { 'net': false, 'tls': false, 'child_process': false };
     return config;
