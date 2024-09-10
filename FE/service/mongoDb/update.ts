@@ -1,8 +1,8 @@
-import { createWalletAddress } from "../../utils/keypair.mjs";
+import { createWalletAddress } from "../../utils/keypair";
 
 const dbName = "wefit365";
 
-export const updateWalletAddressByEmail = async (client, emailUser) => {
+export const updateWalletAddressByEmail = async (client:any, emailUser:any) => {
   try {
     const walletAddress = createWalletAddress();
     const result = await client.db(dbName).collection('users').updateOne(

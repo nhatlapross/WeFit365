@@ -1,6 +1,6 @@
-export async function uploadFile(file, numEpochs, publisherUrl) {
+export async function uploadFile(file:any, numEpochs:number = 1) {
     try {
-        const response = await fetch(`${publisherUrl}/v1/store?epochs=${numEpochs}`, {
+        const response = await fetch(`https://publisher-devnet.walrus.space/v1/store?epochs=${numEpochs}`, {
             method: "PUT",
             body: file,
         });

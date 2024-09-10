@@ -1,7 +1,7 @@
 import {MongoClient, ServerApiVersion} from 'mongodb'
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI:any = process.env.MONGODB_URI;
 
-let client;
+let client:any;
 
 export const connectToDatabase = async () => {
     if (!client) {
