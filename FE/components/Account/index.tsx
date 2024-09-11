@@ -1,6 +1,7 @@
 "use client";
 // import Image from "next/image";
 // import avatar from "@/asset/avatar.jpg"
+import { useRouter } from 'next/navigation';
 import NotiIcon from "@/asset/icon/NotiIcon";
 import LogoIconSmall from "@/asset/icon/LogoSmall";
 import useTab from "@/components/Tabbar/useTab";
@@ -53,6 +54,7 @@ interface Total {
 
 const Account = () => {
     const [selectedTab, setSelectedTab] = useTab('2');
+    const router = useRouter();
     function changeTabHandler(value: string) {
         setSelectedTab(value);
     }
@@ -93,6 +95,10 @@ const Account = () => {
         return () => clearInterval(intervalId);
     }, []);
 
+    const goToProfile = () =>{
+        
+    }
+
     const fetchUserData = async () => {
         try {
           const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/get/getUser?email=${session?.user?.email}`);
@@ -125,7 +131,9 @@ const Account = () => {
                         width={45}
                         radius="full"
                         alt="NextUI Fruit Image with Zoom"
-                        src={session?.user?.image ?? "/path/to/default/image.jpg"}
+                        src={session?.user?.image ?? "/path/to/default/image.jpg"
+                        }
+                        onClick={() => router.push('/profile')}
                     />
                     <span className="font-bold">{session?.user?.name}</span>
                 </div>
