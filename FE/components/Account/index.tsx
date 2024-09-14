@@ -31,6 +31,7 @@ import Step7dayChart from "../SevenDayStep";
 import GaugeChart from "../GaugeChart/GaugeChart";
 import {Image} from "@nextui-org/image";
 import LogoutIcon from "@/asset/icon/LogoutIcon";
+import ic from 'ic0';
 
 interface FitnessData {
     steps: number,
@@ -63,6 +64,8 @@ const Account = () => {
     const [fitData, setFitData] = useState<FitnessData>({steps:0,distance:0,activeDuration:0,calories:0});
     const [toTal,setTotal] = useState<Total>({distance:25.06,hour:25,minute:10,coin:256});
     const { data: session } = useSession() || {};
+    const ledger = ic(process.env.NEXT_PUBLIC_CANISTER_URL as string); 
+
     useEffect(() => {
         async function fetchStepData() {
           const response = await fetch('/api/getDailyStep');
