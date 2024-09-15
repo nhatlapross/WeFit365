@@ -62,7 +62,7 @@ const Account = () => {
     const [stepData, setStepData] = useState<StepData[]>([]);
     const [email,setEmail] = useState("")
     const [fitData, setFitData] = useState<FitnessData>({steps:0,distance:0,activeDuration:0,calories:0});
-    const [toTal,setTotal] = useState<Total>({distance:25.06,hour:25,minute:10,coin:256});
+    const [toTal,setTotal] = useState<Total>({distance:25.06,hour:25,minute:10,coin:4995});
     const { data: session } = useSession() || {};
     const ledger = ic(process.env.NEXT_PUBLIC_CANISTER_URL as string); 
 
