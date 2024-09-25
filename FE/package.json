@@ -16,6 +16,8 @@
   "dependencies": {
     "@heroicons/react": "^2.1.5",
     "@nextui-org/react": "^2.4.6",
+    "@nextui-org/use-infinite-scroll": "^2.1.5",
+    "@react-stately/data": "^3.11.6",
     "@types/react-gauge-chart": "^0.4.3",
     "chart.js": "^4.4.3",
     "chartjs-gauge": "^0.3.0",

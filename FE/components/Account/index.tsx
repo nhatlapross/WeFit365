@@ -32,6 +32,7 @@ import GaugeChart from "../GaugeChart/GaugeChart";
 import {Image} from "@nextui-org/image";
 import LogoutIcon from "@/asset/icon/LogoutIcon";
 import ic from 'ic0';
+import Hackathon from '../Hackathon';
 
 interface FitnessData {
     steps: number,
@@ -167,6 +168,7 @@ const Account = () => {
                     </div>
                 </div>
             </div>
+            <Hackathon />
             <div className="flex justify-center items-center my-8">
                 <GaugeChart value={fitData.steps} maxValue={10000} onClaimSuccess={onClaimSuccess}/>
             </div>
