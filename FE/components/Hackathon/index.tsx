@@ -5,7 +5,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useState } from "react";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
 import Leaderboard from "../Leaderboard";
-interface IMyHackathon{
+import TimeIcon from "@/asset/icon/TimeIcon";
+interface IMyHackathon {
     id: number;
     title: string;
     image: string;
@@ -18,7 +19,7 @@ interface IMyHackathon{
 export default function Hackathon() {
     const [selected, setSelected] = useState("allHackathon");
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [ selectedItem, setSelectedItem] = useState<IMyHackathon>({
+    const [selectedItem, setSelectedItem] = useState<IMyHackathon>({
         id: 1,
         title: 'Race 1: 5K Fun Run',
         image: "https://th.bing.com/th/id/OIP.HPRn0m__rRe18Rs3j4wkrQHaH_?w=173&h=187&c=7&r=0&o=5&pid=1.7",
@@ -40,7 +41,7 @@ export default function Hackathon() {
         {
             id: 2,
             title: 'Race 2: 10K Challenge',
-            image: "https://th.bing.com/th?id=OIP.8Al-B7sxxmlpbVBMw7Z0UgHaFl&w=287&h=217&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2",
+            image: "https://th.bing.com/th/id/OIP.SUFrYYQSpoEjiUcsg10rRwHaHa?rs=1&pid=ImgDetMain",
             timeStart: '01/01/2024 00:00',
             timeEnd: '12/12/2024 00:00',
             status: 'ongoing',
@@ -71,7 +72,7 @@ export default function Hackathon() {
             id: 2,
             title: 'Race 2: 10K Challenge',
             joining: 200,
-            image: "https://th.bing.com/th?id=OIP.8Al-B7sxxmlpbVBMw7Z0UgHaFl&w=287&h=217&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2",
+            image: "https://th.bing.com/th/id/OIP.SUFrYYQSpoEjiUcsg10rRwHaHa?rs=1&pid=ImgDetMain",
             timeStart: '01/01/2024 00:00',
             timeEnd: '12/12/2024 00:00',
             status: 'ongoing'
@@ -92,7 +93,7 @@ export default function Hackathon() {
             image: "https://th.bing.com/th/id/OIP.2id1rOvG2mH1os0sVFUUNgHaHa?w=188&h=187&c=7&r=0&o=5&pid=1.7",
             timeStart: '01/01/2024 00:00',
             timeEnd: '12/12/2024 00:00',
-            status: 'ongoing'
+            status: 'completed'
         },
     ]
 
@@ -115,11 +116,16 @@ export default function Hackathon() {
             <div className="flex w-full flex-col mt-5">
                 <Tabs
                     aria-label="Options"
+                    color="primary"
+                    classNames={{
+                        cursor: "bg-primary text-white",
+                        tabContent: "group-data-[selected=true]:text-white"
+                    }}
                     selectedKey={selected}
                     onSelectionChange={(e: any) => setSelected(e.key)}
                 >
                     <Tab key="myHackathon" title="My Champion">
-                        <Card className="bg-gray-200">
+                        <Card className="bg-white">
                             <CardBody>
                                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                     {myHackathon.map(item => (
@@ -138,10 +144,12 @@ export default function Hackathon() {
                                                 />
                                             </CardBody>
                                             <CardFooter className="bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
-                                                <div>
-                                                    <p className="text-black text-tiny">Time start:{item.timeStart}</p>
-                                                    <p className="text-black text-tiny">Time end:{item.timeEnd}</p>
+
+                                                <div className="flex items-center gap-1">
+                                                    <TimeIcon />
+                                                    <span className="text-[10px] font-medium text-[#81819C]">{item.timeStart} - {item.timeEnd}</span>
                                                 </div>
+
                                                 <Button className="text-tiny" color="primary" radius="full" size="sm" onPress={() => viewLeaderboard(item)}>
                                                     Leaderboard
                                                 </Button>
@@ -153,7 +161,7 @@ export default function Hackathon() {
                         </Card>
                     </Tab>
                     <Tab key="allHackathon" title="All Champion">
-                        <Card className="bg-gray-200">
+                        <Card className="bg-white">
                             <CardBody>
                                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                     {AllHackathon.map(item => (
@@ -172,9 +180,9 @@ export default function Hackathon() {
                                                 />
                                             </CardBody>
                                             <CardFooter className="bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
-                                                <div>
-                                                    <p className="text-black text-tiny">Time start:{item.timeStart}</p>
-                                                    <p className="text-black text-tiny">Time end:{item.timeEnd}</p>
+                                                <div className="flex items-center gap-1">
+                                                    <TimeIcon />
+                                                    <span className="text-[10px] font-medium text-[#81819C]">{item.timeStart} - {item.timeEnd}</span>
                                                 </div>
                                                 <Button className="text-tiny" color="primary" radius="full" size="sm" onPress={() => joinHackathon(item)}>
                                                     Join
